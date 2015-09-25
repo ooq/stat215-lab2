@@ -1,0 +1,137 @@
+\batchmode
+\makeatletter
+\def\input@path{{/Users/Adam/Dropbox/Stat215A-2013/Labs/Lab2/Lab//}}
+\makeatother
+\documentclass[english]{article}\usepackage{graphicx, color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
+\newcommand{\hlnumber}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlfunctioncall}[1]{\textcolor[rgb]{0.501960784313725,0,0.329411764705882}{\textbf{#1}}}%
+\newcommand{\hlstring}[1]{\textcolor[rgb]{0.6,0.6,1}{#1}}%
+\newcommand{\hlkeyword}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlargument}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hlcomment}[1]{\textcolor[rgb]{0.180392156862745,0.6,0.341176470588235}{#1}}%
+\newcommand{\hlroxygencomment}[1]{\textcolor[rgb]{0.43921568627451,0.47843137254902,0.701960784313725}{#1}}%
+\newcommand{\hlformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hleqformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hlassignement}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlpackage}[1]{\textcolor[rgb]{0.588235294117647,0.709803921568627,0.145098039215686}{#1}}%
+\newcommand{\hlslot}[1]{\textit{#1}}%
+\newcommand{\hlsymbol}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlprompt}[1]{\textcolor[rgb]{0.2,0.2,0.2}{#1}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[colorlinks,linkcolor=black,anchorcolor=blue,citecolor=black]{hyperref}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+\@ifundefined{date}{}{\date{}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\pagestyle{empty} 
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\title{Lab 2 - Linguistic Survey\\
+Stat 215A, Fall 2015}
+
+
+\author{Ni,Wei; Pu,Qifan; Saha,Sujayam; Ye,Yuting}
+
+\maketitle
+
+
+
+\section{Introduction}
+\label{sec:intro}
+\qquad In this report, we studied the linguistic geography of the United States by analyzing the \textit{Harvard Dialect Survey} conducted in 2003. In Section~\ref{sec:data}, we performs data cleaning and preliminary data exploration. \textit{Question 74}, \textit{Question 76} and \textit{Question 86} are chosen for investigation. In Section~\ref{sec:dimred}, multi data reduction methods are applied to explore the dimensional characteristics of the dataset as well as to eliminate noise. The methods are \textit{Principal Component Analysis} (PCA)~\cite{pca}, \textit{Independent Component Analysis} (ICA)~\cite{ica} and \textit{Random Projection}~\cite{randomprojection}. In Section~\ref{sec:clustering}, we combine several clustering methods like \textit{k-means}~\cite{kmeans} clustering, \textit{Non-negative Matrix Factorization} (NMF)\cite{nmf}, \textit{k-medoids} clustering~\cite{kmedoids} and \textit{hierarchy} clustering~\cite{hierarchical} with data reduction methods on the linguistic data. The number of clustering is determined by gap statistics, average silhouette width and visualization. Four dialect regions are found after clustering, i.e., eastern part, middle part, southern part and western plus northern part of the U.S..  In Section~\ref{sec:stability}, we perturb the raw data by adding Gaussian noises in order to test the robustness the clustering method. We finally conclude in Section~\ref{sec:conc}. \textbf{Appendix} includes the kernel density portion from \textit{Lab1}.
+
+%\section{The Data}
+\input{data_cleaning}
+\input{eda}
+
+%\section{Dimension Reduction Methods}
+\input{dimred}
+
+
+
+\section{Clustering combined with Data Reduction}
+\label{sec:clustering}
+
+\input{kmeansAndNMF}
+\input{kmedoids}
+\input{hierarchical}
+\input{compareClustering}
+
+%\section{Stability of findings to perturbation}
+\input{perturbation}
+
+\section{Conclusion}
+\label{sec:conc}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\input{Appendix}
+
+\end{document}
